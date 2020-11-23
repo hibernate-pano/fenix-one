@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kit.pano.febs.system.dao.UserMapper">
+
+    <select id="findUserDetail" resultType="kit.pano.febs.system.domain.po.User"
+            parameterType="kit.pano.febs.system.domain.po.User">
+        SELECT
+        u.user_id userId,
+        u.username,
+        u.password,
+        u.email,
+        u.mobile,
+        u.STATUS,
+        u.create_time createTime,
+        u.gender,
+        d.dept_id deptId,
+        d.dept_name deptName,
+        u.AVATAR,
+        u.DESCRIPTION,
+        u.LAST_LOGIN_TIME lastLoginTime,
+        u.EXPIRE_TIME,
+        u.real_name,
+        u.id_number,
+        GROUP_CONCAT(r.role_id) roleId,
+        GROUP_CONCAT(r.ROLE_NAME) roleName
+        FROM
+        t_user u
+        LEFT JOIN t_dept d ON (u.dept_id = d.dept_id)
+        LEFT JOIN t_user_role ur ON (u.user_id = ur.user_id)
+        LEFT JOIN t_role r ON r.role_id = ur.role_id
+        WHERE 1 = 1
+        <if test="user.condition != null and user.condition != ''">
+            and (
+            u.username like concat('%', #{user.condition}, '%')
+            or u.mobile like concat('%', #{user.condition}, '%')
+            )
+        </if>
+        group by u.username,
+        u.user_id,
+        u.password,
+        u.email,
+        u.mobile,
+        u. STATUS,
+        u.create_time,
+        u.gender,
+        d.dept_id,
+        d.dept_name,
+        u.AVATAR,
+        u.DESCRIPTION,
+        u.LAST_LOGIN_TIME
+    </select>
+
+    <select id="findDetail" resultType="kit.pano.febs.system.domain.po.User" parameterType="string">
+        SELECT u.user_id                 userId,
+               u.username,
+               u.password,
+               u.email,
+               u.mobile,
+               u.STATUS,
+               u.create_time             createTime,
+               u.gender,
+               d.dept_id                 deptId,
+               d.dept_name               deptName,
+               u.AVATAR,
+               u.DESCRIPTION,
+               u.LAST_LOGIN_TIME         lastLoginTime,
+               u.EXPIRE_TIME,
+               u.real_name,
+               u.id_number,
+               GROUP_CONCAT(r.role_id)   roleId,
+               GROUP_CONCAT(r.ROLE_NAME) roleName
+        FROM t_user u
+                 LEFT JOIN t_dept d ON (u.dept_id = d.dept_id)
+                 LEFT JOIN t_user_role ur ON (u.user_id = ur.user_id)
+                 LEFT JOIN t_role r ON r.role_id = ur.role_id
+        WHERE u.username = #{username}
+        group by u.username,
+                 u.user_id,
+                 u.password,
+                 u.email,
+                 u.mobile,
+                 u.STATUS,
+                 u.create_time,
+                 u.gender,
+                 d.dept_id,
+                 d.dept_name,
+                 u.AVATAR,
+                 u.DESCRIPTION,
+                 u.LAST_LOGIN_TIME
+    </select>
+</mapper>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kit.pano.febs.web.dao.LitemallAssistantMapper">
+
+    <select id="queryOneById" resultType="kit.pano.febs.web.domain.vo.LitemallAssistantVO">
+        select la.id,
+               nickname,
+               phone,
+               la.real_name,
+               la.id_number,
+               la.user_id,
+               status,
+               avatar
+        from litemall_assistant la
+                 left join t_user tu on tu.USER_ID = la.user_id
+        where la.id = #{id}
+    </select>
+
+    <select id="listAssistant" resultType="kit.pano.febs.web.domain.vo.LitemallAssistantVO">
+        select
+        la.id, nickname, phone, la.real_name, la.id_number, la.user_id,
+        last_login_time, EXPIRE_TIME, CREATE_TIME as addTime, MODIFY_TIME,
+        STATUS,AVATAR
+        from litemall_assistant la
+        left join t_user tu on tu.USER_ID = la.user_id
+        where 1= 1
+        <if test="assistant.condition !=null and assistant.condition != ''">
+            and (
+            la.id like concat('%', #{assistant.condition}, '%')
+            or la.nickname like concat('%', #{assistant.condition}, '%')
+            or la.phone like concat('%', #{assistant.condition}, '%')
+            )
+        </if>
+    </select>
+</mapper>

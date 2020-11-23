@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kit.pano.febs.web.dao.LitemallRunnerMapper">
+
+    <select id="listRunner" resultType="kit.pano.febs.web.domain.po.LitemallRunner">
+        select
+        lr.id,
+        lr.nickname,
+        lr.phone,
+        lr.real_name,
+        lr.id_number,
+        ls.shop_name
+        from litemall_runner lr
+        left join litemall_shop ls on lr.add_time = ls.add_time
+        where lr.deleted = 0
+        <if test="runner.condition != null and runner.condition != ''">
+            and
+            (
+            lr.nickname like concat('%', #{runner.condition}, '%')
+            or lr.id like concat('%', #{runner.condition}, '%')
+            or lr.phone like concat('%', #{runner.condition}, '%')
+            )
+        </if>
+    </select>
+</mapper>

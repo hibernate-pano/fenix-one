@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kit.pano.febs.web.dao.LitemallShopkeeperMapper">
+
+    <select id="queryOneById" resultType="kit.pano.febs.web.domain.vo.LitemallShopkeeperVO">
+        select la.id,
+               nickname,
+               phone,
+               la.real_name,
+               la.id_number,
+               la.user_id,
+               status,
+               avatar
+        from litemall_shopkeeper la
+                 left join t_user tu on tu.USER_ID = la.user_id
+        where la.id = #{id}
+    </select>
+
+    <select id="listShopkeeper" resultType="kit.pano.febs.web.domain.vo.LitemallShopkeeperVO">
+        select
+        ls.id, nickname, phone, ls.real_name, ls.id_number, ls.user_id,
+        LAST_LOGIN_TIME, EXPIRE_TIME, CREATE_TIME as addTime, MODIFY_TIME,
+        STATUS, AVATAR, shopkeeper_type
+        from litemall_shopkeeper ls
+        left join t_user tu on tu.USER_ID = ls.user_id
+        where 1= 1
+        <if test="shopkeeper.condition !=null and shopkeeper.condition != ''">
+            and (
+            ls.id like concat('%', #{shopkeeper.condition}, '%')
+            or ls.nickname like concat('%', #{shopkeeper.condition}, '%')
+            or ls.phone like concat('%', #{shopkeeper.condition}, '%')
+            )
+        </if>
+    </select>
+
+</mapper>
