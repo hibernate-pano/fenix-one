@@ -1,5 +1,6 @@
 package kit.pano.febs.common.generator;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
@@ -33,7 +34,7 @@ public class CodeGenerator {
         System.out.println("请输入" + tip + "：");
         if (scanner.hasNext()) {
             String ipt = scanner.next();
-            if (StringUtils.isNotEmpty(ipt)) {
+            if (StrUtil.isNotEmpty(ipt)) {
                 return ipt;
             }
         }

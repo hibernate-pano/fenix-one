@@ -2,6 +2,7 @@ package kit.pano.febs.system.service.impl;
 
 import cn.hutool.core.lang.Assert;
 import cn.hutool.core.util.ObjectUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
@@ -87,7 +88,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Transactional(rollbackFor = Exception.class)
     public void createUser(User user) throws Exception {
 
-        if (StringUtils.isNotEmpty(user.getUsername())) {
+        if (StrUtil.isNotEmpty(user.getUsername())) {
             List<User> users = baseMapper.selectList(
                     new LambdaQueryWrapper<User>()
                             .eq(User::getUsername, user.getUsername())
@@ -109,7 +110,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         save(user);
 
         // 保存用户角色
-        if (StringUtils.isNotEmpty(user.getRoleId())) {
+        if (StrUtil.isNotEmpty(user.getRoleId())) {
             String[] roles = user.getRoleId().split(StringPool.COMMA);
             setUserRoles(user, roles);
         }

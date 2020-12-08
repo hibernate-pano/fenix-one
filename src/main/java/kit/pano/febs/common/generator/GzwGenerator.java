@@ -65,7 +65,7 @@ public class GzwGenerator {
         // 2. 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
         dsc.setDbType(DbType.MYSQL)
-                .setUrl("jdbc:mysql://172.22.1.124:3307/property_right?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai")
+                .setUrl("jdbc:mysql://172.22.1.124:3307/enterprise_home?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull&serverTimezone=Asia/Shanghai")
                 .setDriverName("com.mysql.cj.jdbc.Driver")
                 .setUsername("root")
                 .setPassword("Guoziwei@mysql2020");
