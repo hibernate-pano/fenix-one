@@ -4,12 +4,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>kit.pano</groupId>
-    <artifactId>pano-febs</artifactId>
+    <artifactId>fenix-one</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
 
-    <name>pano-febs</name>
-    <description>pano-febs</description>
+    <name>fenix-one</name>
+    <description>fenix-one</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
