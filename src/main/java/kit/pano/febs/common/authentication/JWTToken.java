@@ -5,6 +5,7 @@ import org.apache.shiro.authc.AuthenticationToken;
 
 /**
  * JSON Web Token
+ *
  * @author pano
  */
 @Data
